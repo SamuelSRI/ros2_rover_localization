@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ros2_rover_localization</name>
+  <version>0.0.1</version>
+  <description>Robot localization configuration for rover odometry and IMU fusion.</description>
+
+  <maintainer email="samuel16.gendre@gmail.com">samuel</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
