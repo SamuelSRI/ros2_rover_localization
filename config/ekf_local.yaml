@@ -2,7 +2,6 @@ ekf_filter_node:
   ros__parameters:
     frequency: 30.0
     sensor_timeout: 0.2
-
     two_d_mode: true
 
     publish_tf: true
@@ -13,14 +12,14 @@ ekf_filter_node:
     world_frame: odom
 
     transform_time_offset: 0.0
-    transform_timeout: 0.0
+    transform_timeout: 0.1
 
     print_diagnostics: true
     debug: false
 
-    # -------------------------
+    # =========================
     # ODOM MOTEUR
-    # -------------------------
+    # =========================
     odom0: /odom
 
     # Ordre:
@@ -30,8 +29,7 @@ ekf_filter_node:
     # vroll, vpitch, vyaw,
     # ax, ay, az
     #
-    # Pour commencer, on utilise surtout les vitesses de l'odom moteur:
-    # vx et vyaw.
+    # On garde surtout vx et vyaw depuis l'odom moteur.
     odom0_config: [
       false, false, false,
       false, false, false,
@@ -43,14 +41,36 @@ ekf_filter_node:
     odom0_queue_size: 10
     odom0_differential: false
     odom0_relative: false
+    odom0_pose_rejection_threshold: 5.0
+    odom0_twist_rejection_threshold: 2.0
 
-    # -------------------------
+    # =========================
+    # ODOM LIDAR
+    # =========================
+    odom1: /lidar/odom
+
+    # Le LiDAR odom donne normalement une pose x/y/yaw plus stable
+    # que l'odom moteur, surtout quand les chenilles glissent.
+    odom1_config: [
+      true,  true,  false,
+      false, false, true,
+      false, false, false,
+      false, false, false,
+      false, false, false
+    ]
+
+    odom1_queue_size: 10
+    odom1_differential: false
+    odom1_relative: false
+    odom1_pose_rejection_threshold: 3.0
+    odom1_twist_rejection_threshold: 2.0
+
+    # =========================
     # IMU
-    # -------------------------
+    # =========================
     imu0: /imu/raw
 
-    # Pour commencer, on utilise surtout la vitesse angulaire z de l'IMU.
-    # Donc yaw rate.
+    # On utilise surtout la vitesse angulaire autour de Z.
     imu0_config: [
       false, false, false,
       false, false, false,
